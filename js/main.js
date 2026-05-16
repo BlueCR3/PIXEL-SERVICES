@@ -72,7 +72,6 @@ function openMobileMenu() {
   hamburger.setAttribute('aria-expanded', 'true');
   hamburger.setAttribute('aria-label', 'Fermer le menu');
   document.body.style.overflow = 'hidden';
-  setTimeout(() => closeMenuBtn.focus(), 50);
 }
 function closeMobileMenu() {
   mobileMenu.classList.remove('open');
@@ -80,13 +79,21 @@ function closeMobileMenu() {
   hamburger.setAttribute('aria-expanded', 'false');
   hamburger.setAttribute('aria-label', 'Ouvrir le menu');
   document.body.style.overflow = '';
-  hamburger.focus();
 }
+
 hamburger.addEventListener('click', openMobileMenu);
+
+// Croix : on gère click ET touchstart pour mobile
 closeMenuBtn.addEventListener('click', closeMobileMenu);
-closeMenuBtn.addEventListener('touchend', function(e) { e.preventDefault(); closeMobileMenu(); });
+closeMenuBtn.addEventListener('touchstart', function(e) {
+  e.stopPropagation();
+  closeMobileMenu();
+}, { passive: true });
+
 mmLinks.forEach(l => l.addEventListener('click', closeMobileMenu));
-document.addEventListener('keydown', e => { if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMobileMenu(); });
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMobileMenu();
+});
 
 // ── Reveal on scroll ──
 const reveals = document.querySelectorAll('.reveal');
