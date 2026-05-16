@@ -34,7 +34,11 @@ document.addEventListener('keydown', e => {
 if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('cursor-ring');
+  cursor.style.opacity = '0';
+  ring.style.opacity = '0';
   document.addEventListener('mousemove', e => {
+    cursor.style.opacity = '1';
+    ring.style.opacity = '0.6';
     cursor.style.left = e.clientX + 'px';
     cursor.style.top = e.clientY + 'px';
     setTimeout(() => {
@@ -42,6 +46,12 @@ if (window.matchMedia('(hover: hover) and (pointer: fine)').matches) {
       ring.style.top = e.clientY + 'px';
     }, 80);
   });
+} else {
+  // Sur mobile/tactile : on supprime complètement les éléments curseur
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursor-ring');
+  if (cursor) cursor.remove();
+  if (ring) ring.remove();
 }
 
 // ── Nav scroll ──
@@ -58,6 +68,7 @@ const mmLinks = document.querySelectorAll('.mm-link');
 
 function openMobileMenu() {
   mobileMenu.classList.add('open');
+  closeMenuBtn.classList.add('visible');
   hamburger.setAttribute('aria-expanded', 'true');
   hamburger.setAttribute('aria-label', 'Fermer le menu');
   document.body.style.overflow = 'hidden';
@@ -65,6 +76,7 @@ function openMobileMenu() {
 }
 function closeMobileMenu() {
   mobileMenu.classList.remove('open');
+  closeMenuBtn.classList.remove('visible');
   hamburger.setAttribute('aria-expanded', 'false');
   hamburger.setAttribute('aria-label', 'Ouvrir le menu');
   document.body.style.overflow = '';
@@ -72,6 +84,7 @@ function closeMobileMenu() {
 }
 hamburger.addEventListener('click', openMobileMenu);
 closeMenuBtn.addEventListener('click', closeMobileMenu);
+closeMenuBtn.addEventListener('touchend', function(e) { e.preventDefault(); closeMobileMenu(); });
 mmLinks.forEach(l => l.addEventListener('click', closeMobileMenu));
 document.addEventListener('keydown', e => { if (e.key === 'Escape' && mobileMenu.classList.contains('open')) closeMobileMenu(); });
 
