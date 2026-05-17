@@ -163,7 +163,10 @@ nav.scrolled .hamburger span { background: var(--ink); }
 }
 #mobile-menu a:hover { color: var(--yellow); }
 #close-menu {
-  position: fixed; top: 20px; right: 20px; z-index: 9999;
+  position: fixed;
+  top: calc((80px - 60px) / 2);
+  right: clamp(16px, 4vw, 48px);
+  z-index: 9999;
   font-size: 22px; color: var(--white); background: rgba(255,255,255,.15);
   border: 2px solid rgba(255,255,255,.4);
   width: 60px; height: 60px; border-radius: 50%;
@@ -490,8 +493,8 @@ nav.contacts { display: flex; flex-direction: column; gap: 8px; position: static
 .cta-band {
   background: var(--yellow);
   padding: clamp(48px,7vw,80px) clamp(16px,5vw,48px);
-  display: flex; align-items: center; justify-content: space-between;
-  gap: 32px; flex-wrap: wrap;
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 16px; text-align: center;
 }
 .cta-band h2 {
   font-family: 'Syne', sans-serif;
@@ -501,7 +504,20 @@ nav.contacts { display: flex; flex-direction: column; gap: 8px; position: static
   max-width: 600px;
 }
 .cta-band h2 span { color: var(--blue-dark); }
-.cta-band-actions { display: flex; gap: 14px; flex-shrink: 0; flex-wrap: wrap; }
+.cta-boutiques {
+  display: flex; gap: 24px; flex-wrap: wrap; justify-content: center; margin-top: 8px;
+}
+.cta-boutique-card {
+  background: rgba(0,0,0,.07); border-radius: 20px;
+  padding: 28px 32px; display: flex; flex-direction: column; align-items: center; gap: 18px;
+  min-width: 240px;
+}
+.cta-boutique-name {
+  font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px;
+  color: var(--ink); display: flex; align-items: center; gap: 8px;
+}
+.cta-boutique-name i { color: var(--blue-dark); }
+.cta-band-actions { display: flex; gap: 12px; flex-shrink: 0; flex-wrap: wrap; justify-content: center; }
 .btn-dark {
   background: var(--ink); color: var(--yellow);
   font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px;
@@ -644,7 +660,8 @@ footer p { font-size: 12px; }
   .stat-item { width: 50%; border-right: none; border-bottom: 1px solid rgba(0,0,0,.1); padding: 12px 16px; }
   .stat-item:nth-child(odd) { border-right: 1px solid rgba(0,0,0,.1); }
   .stat-item:nth-last-child(-n+2) { border-bottom: none; }
-  .cta-band { text-align: center; justify-content: center; }
+  .cta-band { text-align: center; }
+  .cta-boutiques { flex-direction: column; align-items: center; }
   .cta-band-actions { width: 100%; justify-content: center; }
   footer { flex-direction: column; text-align: center; align-items: center; }
   .footer-links { justify-content: center; }
