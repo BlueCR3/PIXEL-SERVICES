@@ -139,9 +139,8 @@ nav.scrolled .nav-links a { color: var(--gray); }
   background: var(--white); transition: transform .3s, opacity .3s; border-radius: 2px;
 }
 nav.scrolled .hamburger span { background: var(--ink); }
-.hamburger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
-.hamburger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
-.hamburger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+/* Cache le hamburger quand le menu est ouvert */
+.hamburger[aria-expanded="true"] { display: none !important; }
 
 /* ─── MOBILE MENU ─── */
 #mobile-menu {
@@ -165,16 +164,23 @@ nav.scrolled .hamburger span { background: var(--ink); }
 #mobile-menu a:hover { color: var(--yellow); }
 #close-menu {
   position: fixed; top: 20px; right: 20px; z-index: 9999;
-  font-size: 24px; color: var(--white); background: rgba(255,255,255,.15);
-  border: 2px solid rgba(255,255,255,.3);
+  font-size: 22px; color: var(--white); background: rgba(255,255,255,.15);
+  border: 2px solid rgba(255,255,255,.4);
   width: 60px; height: 60px; border-radius: 50%;
   display: none; align-items: center; justify-content: center;
   touch-action: manipulation;
   -webkit-tap-highlight-color: rgba(255,255,255,.2);
   cursor: pointer;
+  transition: background .2s, color .2s, border-color .2s;
 }
 #close-menu.visible { display: flex; }
 #close-menu:active { background: rgba(255,255,255,.3); }
+/* Croix noire quand nav scrollée (fond blanc) */
+#close-menu.scrolled-style {
+  color: var(--ink);
+  background: rgba(0,0,0,.06);
+  border-color: rgba(0,0,0,.2);
+}
 
 /* ─── HERO ─── */
 .hero {
