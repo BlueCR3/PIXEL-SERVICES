@@ -69,6 +69,12 @@ const mmLinks = document.querySelectorAll('.mm-link');
 function openMobileMenu() {
   mobileMenu.classList.add('open');
   closeMenuBtn.classList.add('visible');
+  // Style selon position de scroll
+  if (window.scrollY > 60) {
+    closeMenuBtn.classList.add('scrolled-style');
+  } else {
+    closeMenuBtn.classList.remove('scrolled-style');
+  }
   hamburger.setAttribute('aria-expanded', 'true');
   hamburger.setAttribute('aria-label', 'Fermer le menu');
   document.body.style.overflow = 'hidden';
