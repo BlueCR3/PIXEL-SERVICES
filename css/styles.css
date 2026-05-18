@@ -127,6 +127,7 @@ nav.scrolled .nav-links a { color: var(--gray); }
   transition: transform .2s, box-shadow .2s !important;
 }
 .nav-cta:hover { transform: scale(1.05) !important; box-shadow: 0 4px 20px rgba(255,209,0,.4) !important; }
+nav .nav-links a.nav-cta:hover { color: var(--ink) !important; }
 
 /* hamburger */
 .hamburger {
