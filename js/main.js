@@ -1,3 +1,11 @@
+// ── Fix iOS 100vh (Safari barre d'adresse variable) ──
+function fixViewportHeight() {
+  const vh = window.innerHeight * 0.01;
+  document.documentElement.style.setProperty('--vh', `${vh}px`);
+}
+fixViewportHeight();
+window.addEventListener('resize', fixViewportHeight, { passive: true });
+
 // ── Modals ──
 function openModal(id) {
   const tpl = document.getElementById('tpl-' + id);
@@ -78,6 +86,9 @@ function openMobileMenu() {
   hamburger.setAttribute('aria-expanded', 'true');
   hamburger.setAttribute('aria-label', 'Fermer le menu');
   document.body.style.overflow = 'hidden';
+  // Empêche le scroll du body sur iOS
+  document.body.style.position = 'fixed';
+  document.body.style.width = '100%';
 }
 function closeMobileMenu() {
   mobileMenu.classList.remove('open');
@@ -85,6 +96,9 @@ function closeMobileMenu() {
   hamburger.setAttribute('aria-expanded', 'false');
   hamburger.setAttribute('aria-label', 'Ouvrir le menu');
   document.body.style.overflow = '';
+  // Restore le scroll du body sur iOS
+  document.body.style.position = '';
+  document.body.style.width = '';
 }
 
 hamburger.addEventListener('click', openMobileMenu);
@@ -134,3 +148,15 @@ if ('IntersectionObserver' in window) {
   }, { threshold: 0.5 });
   counters.forEach(c => counterObs.observe(c));
 }
+
+// ── Smooth scroll polyfill iOS ──
+// iOS Safari < 15.4 ne supporte pas scroll-behavior: smooth nativement
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function(e) {
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      e.preventDefault();
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  });
+});
