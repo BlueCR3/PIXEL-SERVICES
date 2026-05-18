@@ -477,6 +477,14 @@ section { padding: clamp(56px, 8vw, 100px) clamp(16px, 5vw, 48px); }
   padding: 8px 0; border-bottom: 1px solid rgba(255,255,255,.06);
   font-size: clamp(12px, 1.5vw, 13px);
 }
+.address .maps-link {
+  color: inherit; /* Conserve la couleur du texte d'origine */
+  text-decoration: none; /* Enlève le soulignement par défaut */
+}
+
+.address .maps-link:hover {
+  text-decoration: underline; /* Souligne légèrement au survol pour l'accessibilité */
+}
 .hours-row .days { color: rgba(255,255,255,.5); }
 .hours-row .time { color: rgba(255,255,255,.85); font-weight: 500; }
 nav.contacts { display: flex; flex-direction: column; gap: 8px; position: static; height: auto; padding: 0; background: none; box-shadow: none; backdrop-filter: none; }
